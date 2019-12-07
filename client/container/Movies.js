@@ -60,6 +60,7 @@ export default function Movies() {
                 popularity: Number(popularity)
             },
              update(cache, { data: { createMovie } }) {
+                console.log(createMovie, '>>>>>');
               const { movies } = cache.readQuery({ query: GET_MOVIES });
               cache.writeQuery({
                 query: GET_MOVIES,
@@ -74,10 +75,12 @@ export default function Movies() {
             variables: {
                 id
             },
-            update(cache, { data: { movies } }) {
+            update(cache, { data: { deleteMovie } }) {
+                const { movies } = cache.readQuery({ query: GET_MOVIES });
+                console.log(deleteMovie, '<<<<<');
                 cache.writeQuery({
                   query: GET_MOVIES,
-                  data: { movies }
+                  data: { movies: movies.filter(v => v._id !== deleteMovie._id ) }
                 });
               }
         })
@@ -91,9 +94,7 @@ export default function Movies() {
             <View style={{ alignItems: 'center', justifyContent: 'center',  flexDirection: 'column', width: '100%', height: 500 }}>
             {
                 loading ? <Text>laoding gan..!!!</Text> : 
-
                 data.movies.map(movie => <Text  onPress={() => handleDel(movie._id)} key={ movie._id } style={{ backgroundColor: 'grey', margin: 5, padding: 10, borderRadius: 10}} > { movie.title}  </Text> )
-                
             }
             </View>
 
