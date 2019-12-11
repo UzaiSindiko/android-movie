@@ -12,7 +12,7 @@ class TVShowController {
     }
 
     static find(req, res, next){
-       TVShow.find({})
+       TVShow.find({}).sort({ updatedAt: -1 })
             .then(tvshow => {
                 res.status(200).json(tvshow)
             })
@@ -67,7 +67,7 @@ class TVShowController {
                         }
                     }
                 ]
-            })
+            }).sort({ updatedAt: -1 })
             .then(tvshow => {
                 res.status(200).json(tvshow)
             })

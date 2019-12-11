@@ -25,9 +25,11 @@ export default function TrailerMovie({ navigation }) {
 
     const [uri, setUri] = useState('')
     useEffect(() => {
-        const result = data.movie.trailer.split('=')[1]
-        setUri(result)
-    }, [])
+        if(!loading){
+            const result = data.movie.trailer.split('=')[1]
+            setUri(result)
+        }
+    }, [loading])
 
     return (
         <ScrollView>

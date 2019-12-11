@@ -12,7 +12,7 @@ class MovieController {
     }
 
     static find(req, res, next){
-        Movie.find({})
+        Movie.find({}).sort({ updatedAt: -1 })
             .then(movies => {
                 res.status(200).json(movies)
             })
@@ -67,7 +67,7 @@ class MovieController {
                         }
                     }
                 ]
-            })
+            }).sort({ updatedAt: -1 })
             .then(movies => {
                 res.status(200).json(movies)
             })
