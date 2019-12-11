@@ -13,10 +13,8 @@ const GET_MOVIES = gql`
         movies {
             _id
             title
-            overview
             poster_path
             popularity
-            tags
         }
     }
 `
@@ -26,10 +24,8 @@ const GET_TVSHOWS = gql`
         tvshows {
             _id
             title
-            overview
             poster_path
             popularity
-            tags
         }
     }
 `
@@ -94,7 +90,6 @@ const DELETE_MOVIE = gql`
     mutation ($id: String){
         deleteMovie(id: $id){
             _id,
-            title,
         }
     }
 `
@@ -103,7 +98,6 @@ const DELETE_TVSHOW = gql`
     mutation ($id: String){
         deleteTvshow(id: $id){
             _id,
-            title,
         }
     }
 ` 

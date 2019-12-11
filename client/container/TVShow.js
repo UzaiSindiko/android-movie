@@ -11,10 +11,8 @@ const GET_TVSHOWS = gql`
         tvshows {
             _id
             title
-            overview
             poster_path
             popularity
-            tags
         }
     }
 `
@@ -24,10 +22,8 @@ const SEARCH_GET_TVSHOWS = gql`
         searchTVShow ( q: $q ) {
             _id
             title
-            overview
             poster_path
             popularity
-            tags
         }
     }
 `

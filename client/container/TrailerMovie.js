@@ -10,12 +10,10 @@ const GET_ONE_MOVIES = gql`
         movie (id: $id) {
             _id
             title
-            overview
             poster_path
             desc
             trailer
             popularity
-            tags
         }
     }
 ` 

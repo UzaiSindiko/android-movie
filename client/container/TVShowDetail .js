@@ -11,12 +11,9 @@ const GET_ONE_TVSHOW = gql`
         tvshow (id: $id) {
             _id
             title
-            overview
             poster_path
             desc
-            trailer             
             popularity
-            tags
         }
     }                                                                                                                                                                                                                                                                                   
 ` 

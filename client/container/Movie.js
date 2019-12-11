@@ -11,10 +11,8 @@ const GET_MOVIES = gql`
         movies {
             _id
             title
-            overview
             poster_path
             popularity
-            tags
         }
     }
 `
@@ -24,28 +22,11 @@ const SEARCH_GET_MOVIES = gql`
         searchMovie ( q: $q ) {
             _id
             title
-            overview
             poster_path
             popularity
-            tags
         }
     }
 `
-
-const GET_ONE_MOVIES = gql`
-    query ( $id: String ){
-        movie (id: $id) {
-            _id
-            title
-            overview
-            poster_path
-            desc
-            trailer
-            popularity
-            tags
-        }
-    }
-` 
 
 export default function Movie({ navigation }) {
     
