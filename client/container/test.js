@@ -60,7 +60,7 @@ export default function Movies() {
                 popularity: Number(popularity)
             },
              update(cache, { data: { createMovie } }) {
-                console.log(createMovie, '>>>>>');
+              console.log(createMovie, '>>>>>');
               const { movies } = cache.readQuery({ query: GET_MOVIES });
               cache.writeQuery({
                 query: GET_MOVIES,
@@ -77,14 +77,12 @@ export default function Movies() {
             },
             update(cache, { data: { deleteMovie } }) {
                 const { movies } = cache.readQuery({ query: GET_MOVIES });
-                console.log(deleteMovie, '<<<<<');
                 cache.writeQuery({
                   query: GET_MOVIES,
                   data: { movies: movies.filter(v => v._id !== deleteMovie._id ) }
                 });
               }
         })
-        
     }
 
     return (        

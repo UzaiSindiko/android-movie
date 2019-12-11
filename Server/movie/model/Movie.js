@@ -12,6 +12,12 @@ const movieSchema = new Schema ({
     poster_path: {
         type: String
     },
+    desc: {
+        type: String
+    },
+    trailer: {
+        type: String
+    },
     popularity: {
         type: Number
     },

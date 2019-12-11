@@ -7,18 +7,21 @@ const typeDefsTVShow = gql`
     title: String,
     overview: String,
     poster_path: String,
+    desc: String,
+    trailer: String,
     popularity: Float,
     tags: [String]
   }
 
   extend type Query {
     tvshows: [TVShow],
-    tvshow (id: String) : TVShow
+    tvshow (id: String) : TVShow,
+    searchTVShow (q: String) : [Movie]
   }
 
   extend type Mutation {
-    createTvshow (title: String, overview: String, poster_path: String, popularity: Float, tags: [String]) : TVShow,
-    updateTvshow (id: String, title: String, overview: String, poster_path: String, popularity: Float, tags: [String]) : TVShow,
+    createTvshow (title: String, overview: String, poster_path: String, desc: String, trailer: String, popularity: Float, tags: [String]) : TVShow,
+    updateTvshow (id: String, title: String, overview: String, poster_path: String, desc: String, trailer: String, popularity: Float, tags: [String]) : TVShow,
     deleteTvshow (id: String) : TVShow
   }
 `;
@@ -38,25 +41,32 @@ const typeDefsTVShow = gql`
           url: `/${args.id}`
         })
         return data
-      } 
+      },
+      searchTVShow: async (parent, args) => {
+        const {data} = await axios({
+          method: 'get',
+          url: `/search?q=${args.q}`
+        })
+        return data
+      }
 
     },
     Mutation: {
       createTvshow: async (parent, args) => {
-        const { title, overview, poster_path, popularity, tags } = args
+        const { title, overview, poster_path, desc, trailer, popularity, tags } = args
         const {data} = await axios({
           method: 'post',
           url: '/',
-          data: { title, overview, poster_path, popularity, tags }
+          data: { title, overview, poster_path, desc, trailer, popularity, tags }
         })
         return data
       },
       updateTvshow: async (parent, args) => {
-        const { id, title, overview, poster_path, popularity, tags } = args
+        const { id, title, overview, poster_path, desc, trailer, popularity, tags } = args
         const { data } = await axios({
           method: 'patch',
           url: `/${id}`,
-          data: { title, overview, poster_path, popularity, tags }
+          data: { title, overview, poster_path, desc, trailer, popularity, tags }
         })
         return data
       },

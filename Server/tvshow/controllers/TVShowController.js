@@ -3,18 +3,18 @@ const TVShow = require('../model/TVShow')
 class TVShowController {
 
     static create(req, res, next){
-        const {title, overview, poster_path, popularity, tags} = req.body
-       TVShow.create({title, overview, poster_path, popularity, tags})
-            .then(movie => {
-                res.status(201).json(movie)
+        const {title, overview, poster_path, desc, trailer, popularity, tags} = req.body
+       TVShow.create({title, overview, poster_path, desc, trailer, popularity, tags})
+            .then(tvshow => {
+                res.status(201).json(tvshow)
             })
             .catch(next)
     }
 
     static find(req, res, next){
        TVShow.find({})
-            .then(movies => {
-                res.status(200).json(movies)
+            .then(tvshow => {
+                res.status(200).json(tvshow)
             })
             .catch(next)
     }
@@ -22,31 +22,57 @@ class TVShowController {
     static findById(req, res, next){
         const { id } = req.params
        TVShow.findById(id)
-            .then(movie => {
-                res.status(200).json(movie)
+            .then(tvshow => {
+                res.status(200).json(tvshow)
             })
             .catch(next)
     }
 
     static update(req, res, next){
         const { id } = req.params
-        const {title, overview, poster_path, popularity, tags} = req.body
-       TVShow.findByIdAndUpdate(id, {title, overview, poster_path, popularity, tags}, { omitUndefined: true, new: true })
-            .then(movie => {
-                res.status(200).json(movie)
+        const {title, overview, poster_path, desc, trailer, popularity, tags} = req.body
+       TVShow.findByIdAndUpdate(id, {title, overview, desc, trailer, poster_path, popularity, tags}, { omitUndefined: true, new: true })
+            .then(tvshow => {
+                res.status(200).json(tvshow)
             })
             .catch(next)
     }
 
     static delete(req, res, next){
         const { id } = req.params
-       TVShow.findOneAndDelete(id)
-            .then(movie => {
-                res.status(200).json(movie)
+       TVShow.findByIdAndDelete(id)
+            .then(tvshow => {
+                res.status(200).json(tvshow)
             })
             .catch(next)
     }
 
+    static search(req, res, next) {
+        const { q } = req.query       
+        TVShow.find({
+                $or: [   
+                    {
+                        title: {
+                            $regex: `${q}`, $options: 'i'
+                        }
+                    },
+                    {
+                        desc: {
+                            $regex: `${q}`, $options: 'i'
+                        }
+                    },
+                    {
+                        tags: {
+                            $regex: `${q}`, $options: 'i'
+                        }
+                    }
+                ]
+            })
+            .then(tvshow => {
+                res.status(200).json(tvshow)
+            })
+            .catch(next)
+    }
 
 }
 

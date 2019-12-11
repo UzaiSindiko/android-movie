@@ -3,8 +3,8 @@ const Movie = require('../model/Movie')
 class MovieController {
 
     static create(req, res, next){
-        const {title, overview, poster_path, popularity, tags} = req.body
-        Movie.create({title, overview, poster_path, popularity, tags})
+        const {title, overview, poster_path, desc, trailer, popularity, tags} = req.body
+        Movie.create({title, overview, poster_path, desc, trailer, popularity, tags})
             .then(movie => {
                 res.status(201).json(movie)
             })
@@ -30,8 +30,8 @@ class MovieController {
 
     static update(req, res, next){
         const { id } = req.params
-        const {title, overview, poster_path, popularity, tags} = req.body
-        Movie.findByIdAndUpdate(id, {title, overview, poster_path, popularity, tags}, { omitUndefined: true, new: true })
+        const {title, overview, poster_path, desc, trailer, popularity, tags} = req.body
+        Movie.findByIdAndUpdate(id, {title, overview, poster_path, desc, trailer, popularity, tags}, { omitUndefined: true, new: true })
             .then(movie => {
                 res.status(200).json(movie)
             })
@@ -39,7 +39,6 @@ class MovieController {
     }
 
     static delete(req, res, next){
-        console.log(`masuk delete dong`)
         const { id } = req.params
         Movie.findByIdAndDelete(id)
             .then(movie => {
@@ -47,6 +46,34 @@ class MovieController {
             })
             .catch(next)
     }
+
+    static search(req, res, next) {
+        const { q } = req.query       
+        Movie.find({
+                $or: [   
+                    {
+                        title: {
+                            $regex: `${q}`, $options: 'i'
+                        }
+                    },
+                    {
+                        desc: {
+                            $regex: `${q}`, $options: 'i'
+                        }
+                    },
+                    {
+                        tags: {
+                            $regex: `${q}`, $options: 'i'
+                        }
+                    }
+                ]
+            })
+            .then(movies => {
+                res.status(200).json(movies)
+            })
+            .catch(next)
+    }
+
 }
 
 module.exports = MovieController
