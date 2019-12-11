@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 import { gql } from 'apollo-boost';
-import { Text, View, TouchableOpacity, Dimensions, TextInput, ScrollView, Image, FlatList, SafeAreaView, ActivityIndicator} from 'react-native'
+import { Text, View, TouchableOpacity, Dimensions, TextInput, ScrollView, Image, ActivityIndicator} from 'react-native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const { width: screenWidth } = Dimensions.get('window')
