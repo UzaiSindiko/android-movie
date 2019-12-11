@@ -11,7 +11,7 @@ const errorHandler = require('./middleware/errorHandler')
 
 const app = express()
 
-const PORT = process.env.PORT || 3002
+const PORT = 3002
 const URI = process.env.URI || 'mongodb://localhost:27017/Entertainme==>'
 
 app.use(express.urlencoded({extended: false}))
